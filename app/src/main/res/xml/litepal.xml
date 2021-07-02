@@ -1,0 +1,9 @@
+<litepal>
+    <dbname value="cool_weather" />
+    <verson value="1" />
+    <list>
+        <mapping class="space.nianchu.selfcoolweather.db.Province" />
+        <mapping class="space.nianchu.selfcoolweather.db.City" />
+        <mapping class="space.nianchu.selfcoolweather.db.Country" />
+    </list>
+</litepal>
