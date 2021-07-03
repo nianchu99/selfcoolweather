@@ -5,7 +5,7 @@ import org.litepal.crud.LitePalSupport;
 public class Country extends LitePalSupport {
     private int id;
     private String countryName;
-    private StringBuilder weatherId;
+    private String weatherId;
     private int cityId;
 
     public int getId() {
@@ -24,11 +24,11 @@ public class Country extends LitePalSupport {
         this.countryName = countryName;
     }
 
-    public StringBuilder getWeatherId() {
+    public String getWeatherId() {
         return weatherId;
     }
 
-    public void setWeatherId(StringBuilder weatherId) {
+    public void setWeatherId(String weatherId) {
         this.weatherId = weatherId;
     }
 
