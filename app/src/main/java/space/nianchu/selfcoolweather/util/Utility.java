@@ -3,19 +3,26 @@ package space.nianchu.selfcoolweather.util;
 import android.text.TextUtils;
 
 import com.google.gson.ExclusionStrategy;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.GenericSignatureFormatError;
 import java.time.chrono.ThaiBuddhistEra;
 
+import space.nianchu.selfcoolweather.AQI;
+import space.nianchu.selfcoolweather.CurrentWeather;
+import space.nianchu.selfcoolweather.Suggestion;
+import space.nianchu.selfcoolweather.Weather;
 import space.nianchu.selfcoolweather.db.City;
 import space.nianchu.selfcoolweather.db.Country;
 import space.nianchu.selfcoolweather.db.Province;
 
 public class Utility {
+    public static final String KEY = "e752552475f6456ea0d333d3232c8773";
     /*
     解析和处理服务器返回的数据
      */
@@ -80,5 +87,30 @@ public class Utility {
                 }
             }
             return false;
+        }
+
+        /*
+        将返回的数据解析成Weather实体类
+         */
+        public static Weather handlerWeatherResponse(String response){
+            return new Gson().fromJson(response, Weather.class);
+        }
+    /*
+    将返回的数据解析成CurrentWeather实体类
+     */
+    public static CurrentWeather handlerCurrentWeather(String response){
+            return new Gson().fromJson(response, CurrentWeather.class);
+        }
+        /*
+        将返回的数据解析成AQI实体类
+         */
+        public static AQI handlerAQI(String response){
+            return new Gson().fromJson(response, AQI.class);
+        }
+        /*
+        将返回的数据解析成Suggestion实体类
+         */
+        public static Suggestion handlerSuggestion(String response){
+            return new Gson().fromJson(response, Suggestion.class);
         }
     }

@@ -1,21 +1,19 @@
 package space.nianchu.selfcoolweather;
 
 import android.app.ProgressDialog;
-import android.icu.text.CaseMap;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleableRes;
@@ -28,6 +26,7 @@ import org.litepal.crud.LitePalSupport;
 
 import java.io.DataInput;
 import java.io.IOException;
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -103,6 +102,26 @@ public class ChooseAreaFragment extends Fragment {
                 }else if (currentLevel == LEVEL_CITY){
                     selectedCity = cityList.get(position);
                     queryCountries();
+                }else if (currentLevel == LEVEL_COUNTRY){
+                    Country country = countryList.get(position);
+                    String weatherId = country.getWeatherId().substring(2);
+                    String cityName = country.getCountryName();
+                    if (getActivity() instanceof MainActivity){
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        Log.d(TAG, "onItemClick: City: " + cityName);
+                        intent.putExtra("city_name", cityName);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if (getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity)getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.requestWeather(weatherId);
+//                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestCurrentWeather(weatherId, cityName);
+                        activity.requestAqi(weatherId);
+                        activity.requestSuggestion(weatherId);
+                    }
                 }
             }
         });
