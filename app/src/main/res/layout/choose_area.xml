@@ -1,28 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary">
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="#fff"
-        android:textSize="20sp"/>
     <Button
         android:id="@+id/back_button"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
+
+        android:layout_gravity="start|center_vertical"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:background="@drawable/ic_back"/>
-</RelativeLayout>
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:textColor="#fff"
+        android:textSize="20sp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/look_for_layout"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        app:cardBackgroundColor="#8000"
+        app:cardCornerRadius="10dp"
+        android:elevation="5dp"
+        android:visibility="gone"
+        >
+        <EditText
+            android:id="@+id/look_for_edit"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="搜索城市"
+            android:textColor="#fff"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            />
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/look_for"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_look_for"
+        />
+
+    <Button
+        android:id="@+id/look_cancel"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:text="取消"
+        android:textColor="#fff"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        />
+</LinearLayout>
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

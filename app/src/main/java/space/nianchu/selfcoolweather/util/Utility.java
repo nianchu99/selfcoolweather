@@ -1,20 +1,17 @@
 package space.nianchu.selfcoolweather.util;
 
 import android.text.TextUtils;
+import android.widget.RelativeLayout;
 
-import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.GenericSignatureFormatError;
-import java.time.chrono.ThaiBuddhistEra;
-
 import space.nianchu.selfcoolweather.AQI;
 import space.nianchu.selfcoolweather.CurrentWeather;
+import space.nianchu.selfcoolweather.Location;
 import space.nianchu.selfcoolweather.Suggestion;
 import space.nianchu.selfcoolweather.Weather;
 import space.nianchu.selfcoolweather.db.City;
@@ -112,5 +109,12 @@ public class Utility {
          */
         public static Suggestion handlerSuggestion(String response){
             return new Gson().fromJson(response, Suggestion.class);
+        }
+
+        /*
+        将返回的数据解析成LocationResponse实体类
+         */
+        public static Location handlerLocation(String response){
+            return new Gson().fromJson(response, Location.class);
         }
     }

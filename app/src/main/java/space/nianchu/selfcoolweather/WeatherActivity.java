@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,10 +99,10 @@ public class WeatherActivity extends AppCompatActivity {
         }
 //        city name
         Log.d(TAG, "onCreate: WeatherActivity: " + cityName);
-        if (cityName ==  null){
-         cityName = preferences.getString("city_name", null);
-            Log.d(TAG, "onCreate: ");
-        }
+//        if (cityName ==  null){
+//         cityName = preferences.getString("city_name", null);
+//            Log.d(TAG, "onCreate: ");
+//        }
         Log.d(TAG, "onCreate: WeatherActivity: " + cityName);
 //        weather
         if (weatherString != null){
@@ -144,11 +145,17 @@ public class WeatherActivity extends AppCompatActivity {
 //        手动刷新天气
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 //        设置一个final的weather_id和一个final的city_name用于手动刷新
-        final String weather_id = weatherId;
-        final String city_name = cityName;
+
+
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                final String weather_id = preferences.getString("weather_id", null);
+                final String city_name = preferences.getString("city_name", null);
+                Log.d(TAG, "onCreate: refresh weather_id: " + weather_id);
+                Log.d(TAG, "onCreate: refresh city_name: " + city_name);
                 requestWeather(weather_id);
                 requestCurrentWeather(weather_id, city_name);
                 requestAqi(weather_id);
@@ -405,9 +412,9 @@ public class WeatherActivity extends AppCompatActivity {
                     break;
             }
         }
-        comfortText.setText(comfortDaily.getText());
-        carWashText.setText(carWashDaily.getText());
-        sportText.setText(sportDaily.getText());
+        comfortText.setText("舒适度: " + comfortDaily.getText());
+        carWashText.setText("洗车指数: " + carWashDaily.getText());
+        sportText.setText("运动建议: " + sportDaily.getText());
         suggestionLayout.setVisibility(View.VISIBLE);
     }
     /*
