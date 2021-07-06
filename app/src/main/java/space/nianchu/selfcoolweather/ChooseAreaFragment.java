@@ -178,6 +178,7 @@ public class ChooseAreaFragment extends Fragment {
                 else {
                     backButton.setVisibility(View.VISIBLE);
                 }
+                hideShowKeyboard();
             }
 
         });
