@@ -1,5 +1,6 @@
 package space.nianchu.selfcoolweather;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
@@ -7,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -29,6 +31,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import space.nianchu.selfcoolweather.service.AutoUpdateService;
 import space.nianchu.selfcoolweather.util.HttpUtil;
 import space.nianchu.selfcoolweather.util.Utility;
 //TODO: 重新打开应用时没有weatherId
@@ -232,6 +235,8 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather_id",weatherId);
                             editor.apply();
                             showWeatherInfo(weather);
+                            Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
+                            startService(intent);
                         }else {
                             Toast.makeText(WeatherActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
                         }
